@@ -7,7 +7,7 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const app = express();
 const port = process.env.PORT || 5000;
-
+console.log(process.env.MONGO_URI,"bldafdfuibudbgugilsgblisdbgli bdibluhdblub l")
 // Connect to MongoDB database
 connectToMongo();
 
