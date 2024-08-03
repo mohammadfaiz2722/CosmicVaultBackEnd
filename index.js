@@ -17,7 +17,7 @@ app.use(helmet()); // Secure HTTP headers
 
 // CORS configuration
 const corsOptions = {
-  origin: [""],
+  origin: process.env.CORS_ORIGIN || "https://scintillating-blancmange-8bd6c0.netlify.app",
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
