@@ -7,7 +7,7 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const app = express();
 const port = process.env.PORT || 5000;
-console.log(process.env.MONGO_URI,"bldafdfuibudbgugilsgblisdbgli bdibluhdblub l")
+// console.log(process.env.MONGO_URI,"bldafdfuibudbgugilsgblisdbgli bdibluhdblub l")
 // Connect to MongoDB database
 connectToMongo();
 
@@ -17,7 +17,7 @@ app.use(helmet()); // Secure HTTP headers
 
 // CORS configuration
 const corsOptions = {
-  origin: "http://localhost:3000" ,
+  origin: "https://cosmicvaultfrontend.onrender.com/" ,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
