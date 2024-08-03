@@ -17,7 +17,7 @@ app.use(helmet()); // Secure HTTP headers
 
 // CORS configuration
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN || "https://scintillating-blancmange-8bd6c0.netlify.app",
+  origin: "http://localhost:3000" ,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
@@ -25,10 +25,7 @@ const corsOptions = {
 app.use(cors(corsOptions)); // Enable CORS
 
 // Serve static files (e.g., images in the 'uploads' folder)
-app.use('/uploads', (req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', process.env.CORS_ORIGIN || 'http://localhost:3000');
-  next();
-}, express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Rate Limiting
 const limiter = rateLimit({
@@ -55,6 +52,5 @@ app.use((req, res, next) => {
 // Start the server
 app.listen(port, () => {
   console.log(`Backend server is running at http://localhost:${port}`);
-  console.log(`CORS enabled for origin: ${process.env.CORS_ORIGIN || 'http://localhost:3000'}`);
-  // console.log(`Serving static files from: ${path.join(__dirname, 'uploads')}`);
+  console.log(`CORS enabled for origin: ${'http://localhost:3000'}`);
 });
