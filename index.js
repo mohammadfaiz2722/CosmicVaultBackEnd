@@ -17,7 +17,7 @@ app.use(helmet()); // Secure HTTP headers
 
 // CORS configuration
 const corsOptions = {
-  origin: "https://cosmicvaultfrontend.onrender.com/" ,
+  origin: "https://cosmicvaultfrontend.onrender.com" ,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
