@@ -35,7 +35,7 @@ router.post('/createuser', async (req, res) => {
               id: user.id
             }
           };
-          const authToken = jwt.sign(data, JWT_SECRET);
+          const authToken = jwt.sign(data, JWT_SECRET , { expiresIn: '1d' }););
           res.json({ authToken, message: "Login Successfully",authToken,id:user.id});
 
     } catch (error) {
@@ -69,7 +69,7 @@ router.post('/login', async (req, res) => {
             id: user.id
           }
         };
-        const authToken = jwt.sign(data, JWT_SECRET);
+        const authToken = jwt.sign(data, JWT_SECRET, { expiresIn: '1d' });
         res.json({ authToken, message: "Login Successfully",id:user.id });
     } catch (e) {
         console.error(e.message);
