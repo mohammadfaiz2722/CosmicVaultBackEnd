@@ -10,7 +10,7 @@ const port = process.env.PORT || 5000;
 // console.log(process.env.MONGO_URI,"bldafdfuibudbgugilsgblisdbgli bdibluhdblub l")
 // Connect to MongoDB database
 connectToMongo();
-
+app.use('/images', express.static(path.join(__dirname, '..', 'frontend', 'images')));
 // Middleware
 app.use(express.json()); // Parse JSON request bodies
 app.use(helmet()); // Secure HTTP headers
