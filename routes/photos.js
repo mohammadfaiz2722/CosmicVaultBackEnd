@@ -8,6 +8,39 @@ const path = require('path');
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 
+// router.post('/upload', upload.single('photo'), async (req, res) => {
+//     try {
+//         if (!req.file) {
+//             return res.status(400).json({ error: 'No file uploaded' });
+//         }
+
+//         const { userId } = req.body;
+
+//         // Validate userId
+//         if (!ObjectId.isValid(userId)) {
+//             return res.status(400).json({ error: 'Invalid user ID' });
+//         }
+
+//         const newPhoto = new Photo({
+//             userId: new ObjectId(userId), // Convert to ObjectId
+//             photoUrl: `/uploads/${req.file.filename}`
+//         });
+
+//         await newPhoto.save();
+
+//         // Increment photoCount in User schema
+//         const user = await User.findByIdAndUpdate(
+//             userId,
+//             { $inc: { photoCount: 1 } },
+//             { new: true } // Return the updated document
+//         );
+
+//         res.status(201).json({ message: 'Photo uploaded successfully', photo: newPhoto, photoCount: user.photoCount });
+//     } catch (error) {
+//         console.error('Upload error:', error);
+//         res.status(500).json({ error: error.message || 'Server error' });
+//     }
+// });
 router.post('/upload', upload.single('photo'), async (req, res) => {
     try {
         if (!req.file) {
@@ -23,7 +56,7 @@ router.post('/upload', upload.single('photo'), async (req, res) => {
 
         const newPhoto = new Photo({
             userId: new ObjectId(userId), // Convert to ObjectId
-            photoUrl: `/uploads/${req.file.filename}`
+            photoUrl: `${req.file.filename}` // Save the path relative to the served static folder
         });
 
         await newPhoto.save();
@@ -35,13 +68,16 @@ router.post('/upload', upload.single('photo'), async (req, res) => {
             { new: true } // Return the updated document
         );
 
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
         res.status(201).json({ message: 'Photo uploaded successfully', photo: newPhoto, photoCount: user.photoCount });
     } catch (error) {
         console.error('Upload error:', error);
         res.status(500).json({ error: error.message || 'Server error' });
     }
 });
-
 router.delete('/delete/:id', async (req, res) => {
     try {
         const photo = await Photo.findByIdAndDelete(req.params.id);
