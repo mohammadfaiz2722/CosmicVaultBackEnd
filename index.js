@@ -22,7 +22,13 @@ const corsOptions = {
   credentials: true
 };
 app.use(cors(corsOptions)); // Enable CORS
-
+app.use('/uploads', (req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://cosmicvaultfrontend.onrender.com');
+  res.setHeader('Access-Control-Allow-Methods', 'GET');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  next();
+}, express.static(path.join(__dirname, 'uploads')));
 // Serve static files (e.g., images in the 'uploads' folder)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
