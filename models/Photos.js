@@ -1,21 +1,20 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const PhotoSchema = new Schema({
+const PhotoSchema = new Schema(
+  {
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'user',
-        required: true
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
     },
-    photoUrl: {
-        type: String,
-        required: true
+    photo: {
+      type: String,
+      required: true,
+      select: false, // important for performance
     },
-    date: {
-        type: Date,
-        default: Date.now
-    }
-});
+  },
+  { timestamps: true }
+);
 
-const Photo = mongoose.model('photo', PhotoSchema);
-module.exports = Photo;
+module.exports = mongoose.model("photo", PhotoSchema);
