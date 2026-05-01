@@ -1,3 +1,11 @@
+const multer = require("multer");
+
+const storage = multer.memoryStorage(); // store file in RAM
+const upload = multer({ storage });
+
+module.exports = upload;
+
+
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
@@ -18,3 +26,6 @@ const PhotoSchema = new Schema(
 );
 
 module.exports = mongoose.model("photo", PhotoSchema);
+
+
+

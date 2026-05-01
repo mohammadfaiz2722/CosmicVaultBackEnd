@@ -10,14 +10,14 @@ const port = process.env.PORT || 5000;
 
 // Connect to MongoDB database
 connectToMongo();
-
+// app.use('/images', express.static(path.join(__dirname, '..', 'frontend', 'images')));
 // Middleware
-app.use(express.json()); // Parse JSON request bodies
-app.use(helmet()); // Secure HTTP headers
+app.use(express.json()); // Parse JSON request bodies // Secure HTTP headers
 
 // CORS configuration
 const corsOptions = {
   origin: ['http://localhost:3000' ,'https://cosmicvaultfrontend.onrender.com'] ,// Allow requests from this frontend origin
+
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
@@ -25,15 +25,24 @@ const corsOptions = {
 };
 app.use(cors(corsOptions)); // Enable CORS with options
 
-// Serve static files (e.g., images in the 'uploads' folder)
+app.use(cors(corsOptions)); // Enable CORS
 app.use('/uploads', (req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.setHeader('Access-Control-Allow-Origin', 'https://cosmicvaultfrontend.onrender.com');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
-  // res.setHeader('Access-Control-Allow-Methods', 'POST');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   next();
 }, express.static(path.join(__dirname, 'uploads')));
+
+// Serve static files (e.g., images in the 'uploads' folder)
+// app.use('/uploads', (req, res, next) => {
+//   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+//   res.setHeader('Access-Control-Allow-Methods', 'GET');
+//   // res.setHeader('Access-Control-Allow-Methods', 'POST');
+//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//   res.setHeader('Access-Control-Allow-Credentials', 'true');
+//   next();
+// }, express.static(path.join(__dirname, 'uploads')));
 
 // Rate Limiting
 const limiter = rateLimit({
